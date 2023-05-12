@@ -1,0 +1,127 @@
+<!-- TRAFFIC Simulator was created by Alexander Carron on April 15th 2022 -->
+<!DOCTYPE html>
+
+<html lang="en_US">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Alexander Clark Carron">
+		<meta name="description" content="
+			Welcome to TRAFFIC Simulator, a game where you need to arrive on time, but traffic is in your way! Dodge the traffic cones on the road in order to make it to your destination before you run out of time. You don't want to be late. so use all three lanes to dodge traffic cones on the road and show up on schedule.
+		">
+		<meta name="keywords" content="traffic simulator, traffic, simulator, game, minigame, cars, road, dodge, simulate, simulated">
+		
+		<!-- JAVASCRIPT -->
+		<script src="./scripts/script.js"></script>
+		
+		<!-- STYLING CSS -->
+		<link rel="stylesheet" href="./styles/main.css">
+		
+		<!-- FAVICON -->
+		<link rel="shortcut icon" href="./Favicons/3-lane_interstate_highway_road(1).ico" type="image/x-icon">
+		
+		<title> TRAFFIC Simulator </title>
+	</head>
+	<body>
+		
+		
+		<!-- ^ START MENU -->
+		<main id="start_menu">
+			<button id="start_button" onclick="runGame()">
+				START
+			</button>
+			
+			<button id="how_to_play_button" onclick="showHowToPlayScreen()">
+				HOW TO PLAY
+			</button>
+		</main>
+		
+		
+		<!-- ^ HOW TO PLAY SCREEN -->
+		<main id="how_to_play_screen">
+			
+			<!-- HEADER -->
+			<h1> HOW TO PLAY </h1>
+			
+			<!-- KEYBOARD CONTROLS -->
+			<dl id="keyboard_controls">
+				<dt> A </dt>
+					<dd> Move to the left lane </dd>
+				<dt> S </dt>
+					<dd> Move to the center lane </dd>
+				<dt> D </dt>
+					<dd> Move to the right lane </dd>
+			</dl>
+			
+			<!-- WHO IS THE PLAYER AND ENEMIES -->
+			<p class="green_text"> 
+				You are the blue car at the top of the screen and you need to get to the end while dodging the orange traffic cones in the way. 
+			</p>
+			
+			<!-- GAME SCREENSHOT -->
+			<img src="./images/Screenshot_of_game.png" alt="Screenshot of the game showing the 3 lanes, player character, and enemies">
+			
+			<!-- WHAT YOU NEED TO DO -->
+			<p class="red_text">
+				Using the keyboard controls, you'll dodge the traffic cones in your way so you can get to work before you run out of time. The timer at the top shows how long you have to get at work before your LATE!
+			</p>
+			
+			<!-- HOW TO READ THE UI -->
+			<p>
+				<span class="green_text"> You can see how close you are to work using the progress bar on the right and the percentage. You'll also see a line with "WORK" labeled on it when your close to the end. </span>
+				<span class="red_text"> If you hit a traffic clone you'll be pushed back even farther from work. </span> 
+			</p>
+			
+			<!-- HOW TO WIN OR LOSE  -->
+			<p>
+				<span class="green_text">  If you reach work before the time runs out you win, </span>
+				<span class="red_text"> but if the timer runs out before then, you'll lose. Have fun! </span>
+			</p>
+			
+			<!-- BACK BUTTON -->
+			<button id="back_button" onclick="showStartMenu()"> GO BACK </button>
+		</main>
+		
+		
+		<!-- ^ GAME -->
+		<main id="game_box">
+			
+			<!-- TIMERS -->
+			<div id="timer_box">
+				<p id="time_left"> 0:00 </p>
+			</div>
+			
+			<!-- THE PROGRESS BAR -->
+			<div id="progress_bar_empty"></div>
+			<div id="progress_bar_filled"></div>
+			<p id="progress_percent"> 0% </p>
+		
+			<!-- THE WIN AND LOSE SCREEN-->
+			<p id="you_win"> YOU WIN! </p>
+			<p id="you_lost"> YOU LOST... </p>
+			<button id="try_again_button" onclick="restartGame()"> PLAY AGAIN </button>
+			<button id="main_menu_button" onclick="showStartMenu()"> MAIN MENU </button>
+			
+			<!-- THE ROAD -->
+			<div id="run_zone">
+				
+				<!-- TRAFFIC LANES -->
+				<div class="row"></div>
+				<div class="row"></div>
+				<div class="row"></div>
+				
+				<!-- PLAYERS, ENEMIES, and END MARKER -->
+				<div id="player_character"></div>
+				<div id="end_marker"></div>
+				<div id="enemies">
+					
+				</div>
+			
+				<div id="backdrop">
+				</div>
+			</div>
+		</main>
+		
+	</body>
+</html>

@@ -1,0 +1,384 @@
+/* TRAFFIC Simulator was created by Alexander Carron on April 15th 2022 */
+:root {
+	--background-color: #000000;
+	--game-background-color: #807e78 ;
+	--good-highlight-color: #278ceb;
+	--good-dark-color: #004b92;
+	--monochrome-highlight-color: #e7e7e7;
+	--monochrome-dark-color: #858585;
+	--bad-highlight-color: #f15422;
+	--bad-dark-color: #a02e0b;
+	--game-width: 300px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	background: var(--background-color);
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+button {
+	cursor: pointer;
+}
+
+.darkness:before {
+	background: #000000;
+	opacity: 1%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+
+/* * START MENU */
+main#start_menu {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 800px;
+}
+	/* START BUTTON */
+	main#start_menu button#start_button {
+		margin-bottom: 25px;
+		padding: 0 30px;
+		border: solid 15px var(--good-highlight-color);
+		background: #00000000;
+		color: var(--good-highlight-color);
+		font-size: 100pt;
+		font-weight: bold;
+	}
+
+	/* HOW TO PLAY BUTTON */
+	main#start_menu button#how_to_play_button {
+		padding: 0 10px;
+		border: solid 5px var(--good-dark-color);
+		background: #00000000;
+		color: var(--good-dark-color);
+		font-size: 40pt;
+		font-weight: bold;
+	}
+
+
+
+/* * HOW TO PLAY */
+main#how_to_play_screen {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: var(--good-dark-color);
+}
+
+	/* * HEADER */
+	main#how_to_play_screen h1 {
+		width: min(920px, 75%);
+		margin: 25px 0;
+		padding: 0 min(30px, 2vw);
+		border: solid min(15px, 1.5vw) var(--good-highlight-color);
+		background: #00000000;
+		color: var(--good-highlight-color);
+		font-size: min(100pt, 10.6vw);
+		font-weight: bold;
+		text-align: center;
+	}
+	
+	/* * KEYBOARD CONTROLS */
+	main#how_to_play_screen dl#keyboard_controls {
+		display: grid;
+		grid-template-columns: 50px 1fr;
+		column-gap: 20px;
+		row-gap: 5px;
+		margin-bottom: 25px;
+	}
+	
+		main#how_to_play_screen dl#keyboard_controls dt {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 50px;
+			width: 50px;
+			border: solid var(--good-dark-color) 5px;
+			background: var(--good-highlight-color);
+			font-size: 26pt;
+			font-weight: bold;
+		}
+		
+		main#how_to_play_screen dl#keyboard_controls dd {
+			display: flex;
+			align-items: center;
+			padding: 0 0 5px 0;
+			font-size: 16pt;
+			font-weight: bold;
+			color: var(--good-highlight-color);
+		}
+	
+	/* * PARAGRAPHS */
+	main#how_to_play_screen p {
+		width: min(920px, 90%);
+		margin-bottom: 25px;
+		font-size: 16pt;
+		text-align: center;
+	}
+		
+		.green_text {
+			color: var(--good-dark-color);
+		}
+		
+		.red_text {
+			color: var(--bad-dark-color);
+		}
+	
+	/* * IMAGES */
+	main#how_to_play_screen img {
+		height: 500px;
+		margin-bottom: 25px;
+		border: solid var(--good-dark-color) 5px;
+	}
+	
+	/* * BACK BUTTON */
+	main#how_to_play_screen button#back_button {
+		width: min(400px, 65%);
+		margin-bottom: 25px;
+		padding: 0 min(10px, 2vw);
+		background: var(--bad-highlight-color);
+		border: solid min(10px, 1.5vw) var(--bad-dark-color);
+		color: var(--bad-dark-color);
+		font-size: min(50pt, 12vw);
+		font-weight: bold;
+		text-align: center;
+	}
+
+
+
+/* * GAME CONTAINER */
+main#game_box {
+	display: none;
+	width: var(--game-width);
+	margin: 0 auto;
+}
+
+
+	/* * TIMER CONTAINER */
+	main#game_box div#timer_box {
+		background: var(--background-color);
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		width: var(--game-width);
+		height: 100px;
+		font-size: 36pt;
+		font-weight: bold;
+	}
+		/* * TIMER */
+		main#game_box div#timer_box p#time_left {
+			color: var(--good-highlight-color);
+		}
+		
+
+	/* * RUN ZONE CONTAINER */
+	main#game_box div#run_zone {
+		position: relative;
+		right: 0px;
+		background: var(--game-background-color);
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		width: var(--game-width);
+		height: 800px;
+		overflow: hidden;
+		transition: right 100ms ease;
+		z-index: -3;
+	}
+		/* * RUN ZONE LANES */
+		main#game_box div#run_zone div.row:not(:first-child) {
+			border-left: solid 1pt #00000033;
+		}
+		main#game_box div#run_zone div.row {
+			position: relative;
+			background: var(--background-color);
+			height: 800px;
+			transition: all 100ms ease;
+			z-index: -3;
+		}
+		
+		/* * PLAYER CHARACTER */
+		main#game_box div#run_zone div#player_character {
+			position: absolute;
+			height: calc(var(--game-width) / 3);
+			width: calc(var(--game-width) / 3);
+			background: url("../images/Car\ Player\ Character.png");
+			background-size: contain;
+			transform: translate(100px, 0px);
+			z-index: 0;
+			transition: transform 65ms ease;
+		}
+		
+		/* * ENEMY CONTAINER */
+		main#game_box div#run_zone div#enemies {
+			position: absolute;
+		}
+	
+		/* * END MARKER */
+		main#game_box div#run_zone div#end_marker {
+			position: absolute;
+			height: 100px;
+			width: 300px;
+			background: url("../images/WORK\ End\ Marker.png");
+			transform: translate(0px, 800px);
+			z-index: 0;
+		}
+	
+	/* * PROGRESS BAR */
+		/* * EMPTY PROGRESS BAR */
+		main#game_box div#progress_bar_empty {
+			position: absolute;
+			top: 105px;
+			left: 1150px;
+			height: 780px;
+			width: 50px;
+			background: var(--monochrome-dark-color);
+			border: 5px solid var(--good-dark-color);
+		}
+		/* * FILLED PROGRESS BAR */
+		main#game_box div#progress_bar_filled {
+			position: absolute;
+			top: 110px;
+			left: 1155px;
+			height: 0px;
+			width: 50px;
+			background: var(--good-highlight-color);
+		}
+		/* * PERCENTAGE NEXT TO PROGRESS BAR */
+		main#game_box p#progress_percent {
+			position: absolute;
+			top: 90px;
+			left: 1215px;
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			font-size: 36pt;
+			font-weight: bold;
+			color: var(--good-dark-color);
+			z-index: -4;
+		}
+		
+		
+	/* * WIN & LOSE SCREEN */
+		/* * YOU WIN TEXT */
+		main#game_box p#you_win {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 350px;
+			height: 100px;
+			opacity: 0;
+			background: var(--good-dark-color);
+			color: var(--good-highlight-color);
+			box-shadow: 0 0 0px 0px var(--good-dark-color);
+			text-shadow: 0 0 0px var(--good-highlight-color);
+			text-align: center;
+			font-size: 50pt;
+			font-weight: normal;
+			z-index: 0;
+			transition: all 350ms ease-in-out;
+		}
+		/* * YOU LOSE TEXT */
+		main#game_box p#you_lost {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 350px;
+			height: 100px;
+			opacity: 0;
+			background: var(--bad-dark-color);
+			color: var(--bad-highlight-color);
+			box-shadow: 0 0 0px 0px var(--good-dark-color);
+			text-shadow: 0 0 0px var(--good-highlight-color);
+			text-align: center;
+			font-size: 50pt;
+			font-weight: normal;
+			z-index: 0;
+			transition: all 350ms ease-in-out;
+		}
+		/* * TRY AGAIN BUTTON */
+		main#game_box button#try_again_button {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, calc(-50% + 180px));
+			width: 500px;
+			padding: 0 10px;
+			background: var(--monochrome-highlight-color);
+			border: solid 10px var(--monochrome-dark-color);
+			color: var(--monochrome-dark-color);
+			box-shadow: 0 0 10px var(--monochrome-dark-color);
+			text-shadow: 0 0 3px var(--monochrome-dark-color);
+			font-size: 50pt;
+			font-weight: bold;
+			text-align: center;
+			z-index: 0;
+		}
+		/* * MAIN MENU BUTTON */
+		main#game_box button#main_menu_button {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, calc(-50% + 280px));
+			width: 400px;
+			padding: 0 10px;
+			background: var(--monochrome-highlight-color);
+			border: solid 10px var(--monochrome-dark-color);
+			color: var(--monochrome-dark-color);
+			box-shadow: 0 0 7px var(--monochrome-dark-color);
+			text-shadow: 0 0 2px var(--monochrome-dark-color);
+			font-size: 40pt;
+			font-weight: bold;
+			text-align: center;
+			z-index: 0;
+		}
+		
+	
+	/* * BACKDROP */
+	div#backdrop {
+		position: absolute;
+		top: 0px;
+		width: 300px;
+		height: 800px;
+		z-index: -2;
+		opacity: 80%;
+		transition: transform 100ms ease;
+	}
+	
+	div.broken_line {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		transform: translateX(-50%);
+		background: var(--monochrome-highlight-color);
+		width: 25px;
+		height: 100px;
+		z-index: -2;
+	}
+		
+		
+/* * ENEMY STYLING */
+	/* * NORMAL ENEMY */
+	div.normal_enemy {
+		position: absolute;
+		height: 100px;
+		width: 100px;
+		background: url("../images/Traffic\ Cone.png");
+		background-size: contain;
+		z-index: 6978;
+	}
+
